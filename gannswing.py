@@ -17,6 +17,29 @@ class GannSwing():
         self.swing_days = swing_days
         self.inside_down = inside_down
         self.ignore_threshold = ignore_threshold
+        self.use_close_of_outside_bar = use_close_of_outside_bar
+        self.__check_input_values()
+
+    def __check_input_values(self):
+        '''
+        Ensure that the values supplied to GannSwing() are valid
+        '''
+        if not isinstance(self.swing_days, int):
+            raise ValueError
+        if not self.swing_days > 0:
+            raise ValueError
+        if not isinstance(self.inside_down, bool):
+            raise ValueError
+        if not (isinstance(self.ignore_threshold, float) or isinstance(self.ignore_threshold, int)):
+            raise ValueError
+        if isinstance(self.ignore_threshold, bool):
+            raise ValueError
+        if not self.ignore_threshold >= 0:
+            raise ValueError
+        if not isinstance(self.use_close_of_outside_bar, bool):
+            raise ValueError
+        
+
 
 if __name__ == '__main__':
     gs = GannSwing(bars=pd.DataFrame())
