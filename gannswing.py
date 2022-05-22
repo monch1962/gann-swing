@@ -14,6 +14,7 @@ class GannSwing():
         - (optional) what is a small enough swing to ignore
         - (optional) use the close of an outside bar to decide the swing direction
         '''
+        self.bars = bars
         self.swing_days = swing_days
         self.inside_down = inside_down
         self.ignore_threshold = ignore_threshold
@@ -25,19 +26,21 @@ class GannSwing():
         Ensure that the values supplied to GannSwing() are valid
         '''
         if not isinstance(self.swing_days, int):
-            raise ValueError
+            raise TypeError
         if not self.swing_days > 0:
-            raise ValueError
+            raise ValueError('swing_days should be a positive integer')
         if not isinstance(self.inside_down, bool):
-            raise ValueError
+            raise TypeError('inside_down should be a boolean')
         if not (isinstance(self.ignore_threshold, float) or isinstance(self.ignore_threshold, int)):
-            raise ValueError
+            raise TypeError('ignore_threshold should be a float or int')
         if isinstance(self.ignore_threshold, bool):
-            raise ValueError
+            raise TypeError('ignore_threshold should not be a boolean')
         if not self.ignore_threshold >= 0:
-            raise ValueError
+            raise ValueError('ignore_threshold should be a positive value')
         if not isinstance(self.use_close_of_outside_bar, bool):
-            raise ValueError
+            raise TypeError('use_close_of_outside_bar should be a boolean')
+        if not isinstance(self.bars, pd.DataFrame):
+            raise TypeError('bars should be a Pandas dataframe')
         
 
 
