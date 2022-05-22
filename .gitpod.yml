@@ -2,6 +2,8 @@ vscode:
   extensions:
     - almenon.arepl
     - littlefoxteam.vscode-python-test-adapter
+    - hbenl.vscode-test-explorer
+    - hbenl.test-adapter-converter
 tasks:
   - init: pip3 install -r requirements.txt
     command: pytest -v
