@@ -20,6 +20,20 @@ def gs():
     gs = GannSwing(bars=bars)
     return gs
 
+@pytest.fixture
+def expected_swing_column_names():
+    return ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingEndDate', 'SwingEndPrice', 'TradeableRange', 'Trend']
+
+
+def test_swing_column_names_are_correct(gs, expected_swing_column_names):
+    '''
+    Check that the set of columns returned by the calculate() function is correct
+    '''
+    expected = expected_swing_column_names.sort()
+    actual_column_names = gs.calculate().columns.values.tolist().sort()
+    # Now we've sorted expected... and actual..., they're easy to compare
+    assert expected == actual_column_names
+
 def test_1_day_swing_timestamps(gs):
     '''
     Check that the correct set of 1 day swings are detected
@@ -37,4 +51,4 @@ def test_1_day_swing_timestamps(gs):
             assert swings.loc[i]['Timestamp'] == i
         else:
             # We shouldn't have a swing returned for this timestamp
-            assert swings.loc[i]['Timestamp'] != i
+            assert not swings.loc[i]['Timestamp'] == i
