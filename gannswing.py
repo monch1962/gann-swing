@@ -18,9 +18,9 @@ class GannSwing():
         self.inside_down = inside_down
         self.ignore_threshold = ignore_threshold
         self.use_close_of_outside_bar = use_close_of_outside_bar
-        self.__check_input_values()
+        self.__parameter_validation()
 
-    def __check_input_values(self):
+    def __parameter_validation(self):
         '''
         Ensure that the values supplied to GannSwing() are valid
         '''
