@@ -57,6 +57,56 @@ class GannSwing():
         self.__parameter_validation()
         return pd.DataFrame(columns = ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingEndDate', 'SwingEndPrice', 'TradeableRange', 'Trend'])
 
+    def __up_day(self, bar):
+        '''
+        Return True if bar is an up day, else False
+        '''
+        this_bar = self.swing_days.loc(bar)
+        try:
+            previous_bar = self.swing_days.loc(bar-1)
+            if this_bar['Low'] >= previous_bar['Low'] and this_bar['High'] > previous_bar['High']:
+                return True
+        except:
+            pass
+        return False
+
+    def __down_day(self, bar):
+        this_bar = self.swing_days.loc(bar)
+        try:
+            previous_bar = self.swing_days.loc(bar-1)
+            if this_bar['Low'] < previous_bar['Low'] and this_bar['High'] <= previous_bar['High']:
+                return True
+        except:
+            pass
+        return False
+
+    def __inside_day(self, bar):
+        this_bar = self.swing_days.loc(bar)
+        try:
+            previous_bar = self.swing_days.loc(bar-1)
+            if this_bar['Low'] >= previous_bar['Low'] and this_bar['High'] <= previous_bar['High']:
+                return True
+        except:
+            pass
+        return False
+
+    def __outside_day(self, bar):
+        this_bar = self.swing_days.loc(bar)
+        try:
+            previous_bar = self.swing_days.loc(bar-1)
+            if this_bar['Low'] < previous_bar['Low'] and this_bar['High'] > previous_bar['High']:
+                return True
+        except:
+            pass
+        return False
+
+    def __find_turns(self, swing_days):
+        for i in range(swing_days+1, len(self.bars)):
+            for j in range(1, swing_days):
+                if self.__down_day(i-j) and self.__up_day(i+j):
+                    continue
+        pass
+
 
 
 if __name__ == '__main__':
