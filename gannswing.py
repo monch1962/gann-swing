@@ -1,11 +1,12 @@
 import pandas as pd
 import numpy as np
+from enum import Enum, auto
 
 class GannSwing():
     '''
     Class to perform Gann swing calculations
     '''
-    def __init__(self, bars, swing_days=1, inside_down=False, ignore_threshold=0, use_close_of_outside_bar=False):
+    def __init__(self, bars: pd.DataFrame):
         '''
         Parameters:
         - (required) a pandas dataframe containing OHLC data
@@ -15,11 +16,11 @@ class GannSwing():
         - (optional) use the close of an outside bar to decide the swing direction
         '''
         self.bars = bars
-        self.swing_days = swing_days
-        self.inside_down = inside_down
-        self.ignore_threshold = ignore_threshold
-        self.use_close_of_outside_bar = use_close_of_outside_bar
-        self.__parameter_validation()
+        #self.swing_days = swing_days
+        #self.inside_down = inside_down
+        #self.ignore_threshold = ignore_threshold
+        #self.use_close_of_outside_bar = use_close_of_outside_bar
+        #self.__parameter_validation()
 
     def __parameter_validation(self):
         '''
@@ -42,6 +43,20 @@ class GannSwing():
         if not isinstance(self.bars, pd.DataFrame):
             raise TypeError('bars should be a Pandas dataframe')
         
+
+    class Trend(Enum):
+        UNKNOWN = np.nan
+        UP = 'Up'
+        DOWN = 'Down'
+
+    def calculate(self, swing_days: int=1, inside_down: bool=False, ignore_threshold: int=0, use_close_of_outside_bar: bool=False) -> pd.DataFrame:
+        self.swing_days = swing_days
+        self.inside_down = inside_down
+        self.ignore_threshold = ignore_threshold
+        self.use_close_of_outside_bar = use_close_of_outside_bar
+        self.__parameter_validation()
+        return pd.DataFrame(columns = ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingEndDate', 'SwingEndPrice', 'TradeableRange', 'Trend'])
+
 
 
 if __name__ == '__main__':
