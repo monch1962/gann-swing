@@ -16,18 +16,29 @@ class GannSwing():
         - (optional) use the close of an outside bar to decide the swing direction
         '''
         self.bars = bars
+        self.__validate_bars(bars)
         #self.swing_days = swing_days
         #self.inside_down = inside_down
         #self.ignore_threshold = ignore_threshold
         #self.use_close_of_outside_bar = use_close_of_outside_bar
         #self.__parameter_validation()
 
+    def __validate_bars(self, bars):
+        if not isinstance(self.bars, pd.DataFrame):
+            raise TypeError('bars should be a Pandas dataframe')
+        mandatory_columns = ['Timestamp', 'Open', 'High', 'Low', 'Close']
+        columns = list(bars.columns)
+        for i in mandatory_columns:
+            if i not in columns:
+                raise IndexError('bars is missing a column named "%s"' % i)
+        
+
     def __parameter_validation(self):
         '''
         Ensure that the values supplied to GannSwing() are valid
         '''
         if not isinstance(self.swing_days, int):
-            raise TypeError
+            raise TypeError('swing_days should be an integer')
         if not self.swing_days > 0:
             raise ValueError('swing_days should be a positive integer')
         if not isinstance(self.inside_down, bool):
@@ -40,8 +51,7 @@ class GannSwing():
             raise ValueError('ignore_threshold should be a positive value')
         if not isinstance(self.use_close_of_outside_bar, bool):
             raise TypeError('use_close_of_outside_bar should be a boolean')
-        if not isinstance(self.bars, pd.DataFrame):
-            raise TypeError('bars should be a Pandas dataframe')
+
         
 
     class Trend(Enum):
@@ -55,7 +65,9 @@ class GannSwing():
         self.ignore_threshold = ignore_threshold
         self.use_close_of_outside_bar = use_close_of_outside_bar
         self.__parameter_validation()
-        return pd.DataFrame(columns = ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingEndDate', 'SwingEndPrice', 'TradeableRange', 'Trend'])
+        results = pd.DataFrame(columns = ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingEndDate', 'SwingEndPrice', 'TradeableRange', 'Trend'])
+
+        return results
 
     def _up_day(self, bar:int):
         '''
@@ -104,7 +116,8 @@ class GannSwing():
         for i in range(swing_days+1, len(self.bars)):
             for j in range(1, swing_days):
                 if self.__down_day(i-j) and self.__up_day(i+j):
-                    continue
+                    break
+            row = pd.DataFrame({'Swing': self.bars.iloc[i]})
         pass
 
 
