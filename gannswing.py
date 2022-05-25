@@ -83,6 +83,9 @@ class GannSwing():
         return False
 
     def _down_day(self, bar:int):
+        '''
+        Return True if bar is a down day, else False
+        '''
         this_bar = self.bars.iloc[bar]
         try:
             previous_bar = self.bars.iloc[bar-1]
@@ -93,6 +96,9 @@ class GannSwing():
         return False
 
     def _inside_day(self, bar:int):
+        '''
+        Return True if bar is an inside day, else False
+        '''
         this_bar = self.bars.iloc[bar]
         try:
             previous_bar = self.bars.iloc[bar-1]
@@ -103,6 +109,9 @@ class GannSwing():
         return False
 
     def _outside_day(self, bar:int):
+        '''
+        Return True if bar is an outside day, else False
+        '''
         this_bar = self.bars.iloc[bar]
         try:
             previous_bar = self.bars.iloc[bar-1]
@@ -129,22 +138,23 @@ class GannSwing():
 
         # When you hover over a bar on the chart, you should see the OHLC values
         hovertext=[]
-        for i in range(len(bars['Open'])):
-            hovertext.append('Open: '+str(bars['Open'][i])+'<br>High: '+str(bars['High'][i])+'<br>Low: '+str(bars['Low'][i])+'<br>Close: '+str(bars['Close'][i]))
+        for i in range(len(self.bars['Open'])):
+            hovertext.append('Open: '+str(self.bars['Open'][i])+'<br>High: '+str(self.bars['High'][i])+'<br>Low: '+str(self.bars['Low'][i])+'<br>Close: '+str(self.bars['Close'][i]))
 
-        fig = go.Figure(data=go.Ohlc(x=bars['Timestamp'],
-            open=bars['Open'],
-            high=bars['High'],
-            low=bars['Low'],
-            close=bars['Close']),
-            text=hovertext,
-            hoverinfo='text')
+        fig = go.Figure(data=go.Ohlc(x=self.bars['Timestamp'],
+            open=self.bars['Open'],
+            high=self.bars['High'],
+            low=self.bars['Low'],
+            close=self.bars['Close']),
+            #text=hovertext,
+            #hoverinfo='text'
+            )
         fig.update(layout_xaxis_rangeslider_visible=False)
 
-        if self.swing_days():
+        #if self.swing_days():
             # Overlay a swing chart on top of the bar chart
             # go.update_layout(...)
-            pass # Remove this line when the swing charts are working
+            #pass # Remove this line when the swing charts are working
         fig.show()
 
     def ticksize(self):
