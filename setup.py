@@ -10,14 +10,14 @@ setup(
         name="gannswings", 
         version=VERSION,
         author="David Mitchell",
-        author_email="<monch1962@gmail.com>",
+        author_email="<monch1962+gannswings@gmail.com>",
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         packages=find_packages(),
         install_requires=[], # add any additional packages that 
         # needs to be installed along with your package. Eg: 'caer'
         
-        keywords=['python', 'financial', 'trading', 'gann'],
+        keywords=['python', 'financial-analysis', 'technical-analysis', 'trading', 'gann'],
         classifiers= [
             "Development Status :: 3 - Alpha",
             "Intended Audience :: Education",

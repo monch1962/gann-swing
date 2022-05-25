@@ -147,6 +147,28 @@ class GannSwing():
             pass # Remove this line when the swing charts are working
         fig.show()
 
+    def ticksize(self):
+        '''
+        Calculate ticksize from the last BARS_TO_USE bars. It's not perfect, but close enough for government work...
+        '''
+        BARS_TO_USE = 20
+        last_N_bars = self.bars.tail(BARS_TO_USE)
+        last_N_bars = last_N_bars.drop(columns=['Timestamp'])
+        prices = set()
+
+        # Add all the OHLC values from the last BARS_TO_USE bars to a set & sort it
+        for _, row in last_N_bars.iterrows():
+            prices.add(row['Open'])
+            prices.add(row['High'])
+            prices.add(row['Low'])
+            prices.add(row['Close'])
+        p1 = sorted(prices)
+
+        # Find the smallest gap between consecutive items in the set
+        ticksize = 10000000
+        for first, second in zip(p1, p1[1:]):
+            ticksize = min(ticksize, round(second-first, 6))
+        return(ticksize)
 
 
 if __name__ == '__main__':
