@@ -30,7 +30,7 @@ def test_swing_column_names_are_correct(gs, expected_swing_column_names):
     Check that the set of columns returned by the calculate() function is correct
     '''
     expected = expected_swing_column_names.sort()
-    actual_column_names = gs.calculate().columns.values.tolist().sort()
+    actual_column_names = gs.calculate_swings().columns.values.tolist().sort()
     # Now we've sorted expected... and actual..., they're easy to compare
     assert expected == actual_column_names
 
@@ -38,7 +38,7 @@ def test_1_day_swing_timestamps(gs):
     '''
     Check that the correct set of 1 day swings are detected
     '''
-    swings_found = gs.calculate(swing_days=1)
+    swings_found = gs.calculate_swings(swing_days=1)
     correct_swings = [1, 4, 17] # These are the swing timestamps that should be detected
 
     # First confirm that the number of swings we found is correct

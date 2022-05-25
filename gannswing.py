@@ -59,7 +59,7 @@ class GannSwing():
         UP = 'Up'
         DOWN = 'Down'
 
-    def calculate(self, swing_days:int=1, inside_down:bool=False, ignore_threshold:int=0, use_close_of_outside_bar:bool=False) -> pd.DataFrame:
+    def calculate_swings(self, swing_days:int=1, inside_down:bool=False, ignore_threshold:int=0, use_close_of_outside_bar:bool=False) -> pd.DataFrame:
         self.swing_days = swing_days
         self.inside_down = inside_down
         self.ignore_threshold = ignore_threshold
