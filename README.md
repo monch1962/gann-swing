@@ -17,6 +17,7 @@ Quite a long list, but it gives me a task list to prioritise and work to:
 - can draw a quick chart of swings overlaid on top of a bar chart
 - build a huge test suite that covers all the functionality. Tests should be able to confirm that it e.g. calculates swings correctly when it gets 17 outside days in a row...
 - work out the trend as well as the swings
+- calculate the days and points between successive swings
 - option to create a swing for inside days in a down trend 
 - option to filter out tiny swings 
 - option to compare the open & close on outside days to determine whether where to put a swing in the daily chart without waiting for the next up or down day
