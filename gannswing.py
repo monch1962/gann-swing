@@ -65,7 +65,7 @@ class GannSwing():
         self.ignore_threshold = ignore_threshold
         self.use_close_of_outside_bar = use_close_of_outside_bar
         self.__parameter_validation()
-        results = pd.DataFrame(columns = ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingEndDate', 'SwingEndPrice', 'TradeableRange', 'Trend'])
+        results = pd.DataFrame(columns = ['Timestamp', 'SwingStartDate', 'SwingStartPrice', 'SwingStartBarID', 'SwingEndDate', 'SwingEndPrice', 'SwingEndBarID', 'ConfirmTimestamp', 'TradeableRange', 'Trend'])
 
         return results
 
