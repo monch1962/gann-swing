@@ -66,6 +66,7 @@ pickleshare==0.7.5
 pipenv==2022.5.2
 pkginfo==1.8.2
 platformdirs==2.5.2
+plotly==5.8.0
 pluggy==1.0.0
 prometheus-client==0.14.1
 prompt-toolkit==3.0.29
@@ -101,6 +102,7 @@ snowballstemmer==2.2.0
 soupsieve==2.3.2.post1
 stack-data==0.2.0
 stevedore==3.5.0
+tenacity==8.0.1
 terminado==0.13.3
 tinycss2==1.1.1
 toml==0.10.2

@@ -120,6 +120,33 @@ class GannSwing():
             row = pd.DataFrame({'Swing': self.bars.iloc[i]})
         pass
 
+    def visualise(self):
+        '''
+        Draw an OHLC chart of the bars data. If swings have been calculated, overlay them
+        on top of the OHLC chart
+        '''
+        import plotly.graph_objects as go
+
+        # When you hover over a bar on the chart, you should see the OHLC values
+        hovertext=[]
+        for i in range(len(bars['Open'])):
+            hovertext.append('Open: '+str(bars['Open'][i])+'<br>High: '+str(bars['High'][i])+'<br>Low: '+str(bars['Low'][i])+'<br>Close: '+str(bars['Close'][i]))
+
+        fig = go.Figure(data=go.Ohlc(x=bars['Timestamp'],
+            open=bars['Open'],
+            high=bars['High'],
+            low=bars['Low'],
+            close=bars['Close']),
+            text=hovertext,
+            hoverinfo='text')
+        fig.update(layout_xaxis_rangeslider_visible=False)
+
+        if self.swing_days():
+            # Overlay a swing chart on top of the bar chart
+            # go.update_layout(...)
+            pass # Remove this line when the swing charts are working
+        fig.show()
+
 
 
 if __name__ == '__main__':
