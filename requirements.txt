@@ -107,7 +107,7 @@ terminado==0.13.3
 tinycss2==1.1.1
 toml==0.10.2
 tomli==2.0.1
-tornado==6.1
+tornado==6.3.2
 traitlets==5.2.0
 twine==4.0.0
 typing_extensions==4.2.0
